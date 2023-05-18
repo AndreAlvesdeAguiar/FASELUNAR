@@ -22,7 +22,7 @@
             <h2 class="card-title">Fase Atual</h2>
           </div>
           <div class="card-body">
-            <div class="moon-phase">
+            <div class="season">
               <i class="fas fa-moon"></i>
               <span class="phase-name"><%= @current_phase[:phase] %></span>
           </div>
@@ -49,21 +49,23 @@
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <h2 class="card-title">Próximas Fases</h2>
-      </div>
-      <div class="card-body">
-        <div class="moon-phases">
-          <% @next_phases.each do |phase| %>
-            <div class="moon-phase">
-              <div class="date"><%= phase[:date].strftime('%d/%m/%Y') %></div>
-              <div class="phase"><%= phase[:phase] %></div>
-            </div>
-          <% end %>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Próximas Fases</h2>
+        </div>
+        <div class="card-body">
+          <div class="moon-phases">
+            <% @next_phases.each do |phase| %>
+              <div class="moon-phase">
+                <div class="date"><%= phase[:date].strftime('%d/%m/%Y') %></div>
+                <div class="phase"><%= phase[:phase] %></div>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
-    </div>
+    </div>  
   </div>
 </body>
 
