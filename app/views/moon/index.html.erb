@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <title>Fases da Lua</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1 class="title">Fases da Lua</h1>
+    </header>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Fase Atual</h2>
+          </div>
+          <div class="card-body">
+            <div class="moon-phase">
+              <i class="fas fa-moon"></i>
+              <span class="phase-name"><%= @current_phase[:phase] %></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Estação</h2>
+          </div>
+          <div class="card-body">
+            <div class="season">
+              <i class="fas fa-sun"></i>
+              <span class="season-name"><%= @current_season[:name] %></span>
+              <div class="dates">
+                <span><%= @current_season[:start_date]&.strftime('%d/%m/%Y') %></span>
+                <span>-</span>
+                <span><%= @current_season[:end_date]&.strftime('%d/%m/%Y') %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Próximas Fases</h2>
+      </div>
+      <div class="card-body">
+        <div class="moon-phases">
+          <% @next_phases.each do |phase| %>
+            <div class="moon-phase">
+              <div class="date"><%= phase[:date].strftime('%d/%m/%Y') %></div>
+              <div class="phase"><%= phase[:phase] %></div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
