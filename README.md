@@ -27,7 +27,7 @@ Things you may want to cover:
 # https://faselua.fly.dev/
 
 
-<!-- Esse código é um controlador Ruby on Rails chamado "MoonController". Ele possui uma ação chamada "index" que é responsável por fornecer informações sobre a fase da lua e as próximas fases, bem como a estação atual.
+Esse código é um controlador Ruby on Rails chamado "MoonController". Ele possui uma ação chamada "index" que é responsável por fornecer informações sobre a fase da lua e as próximas fases, bem como a estação atual.
 
 A ação "index" define três variáveis de instância: "@current_phase", "@next_phases" e "@current_season".
 
@@ -47,7 +47,7 @@ Além dessas três principais funcionalidades, o código também possui outros m
 
 No geral, esse código fornece informações sobre a fase da lua, próximas fases e estação atual com base na data atual. -->
 
-<!-- 
+ 
 Como são feito esses calculos?
 
 Os cálculos são feitos usando o conceito de número juliano, que é um sistema de contar os dias a partir de uma origem fixa, no caso, a data de referência de 1 de janeiro de 4713 a.C. do calendário juliano. Esse sistema é usado para calcular o número de dias passados desde essa data até a data fornecida.
@@ -85,4 +85,4 @@ Por fim, é calculada a fase da lua com base na idade da lua. A idade da lua é 
 
 Os nomes das fases da lua são armazenados em um array chamado phase_names, e o valor calculado para a fase da lua é usado como índice para recuperar o nome correspondente dessa array.
 
-Esses cálculos permitem determinar a fase da lua com base em uma data específica, usando conceitos astronômicos e um sistema de referência temporal. -->
+Esses cálculos permitem determinar a fase da lua com base em uma data específica, usando conceitos astronômicos e um sistema de referência temporal.
