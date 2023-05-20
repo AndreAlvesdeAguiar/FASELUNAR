@@ -1,0 +1,22 @@
+<!-- app/views/weather/index.html.erb -->
+
+<h1>Dados Climáticos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>UF</th>
+      <th>ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @data.each do |cidade| %>
+      <tr>
+        <td><%= cidade[0] %></td>
+        <td><%= cidade[1] %></td>
+        <td><%= cidade[2] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
