@@ -26,6 +26,7 @@ Things you may want to cover:
 
 # https://faselua.fly.dev/
 
+xxx
 
 Esse código é um controlador Ruby on Rails chamado "MoonController". Ele possui uma ação chamada "index" que é responsável por fornecer informações sobre a fase da lua e as próximas fases, bem como a estação atual.
 
