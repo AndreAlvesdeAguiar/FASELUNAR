@@ -1,6 +1,20 @@
-<!-- app/views/weather/index.html.erb -->
+<h1>Selecione uma cidade</h1>
 
-<h1>Dados Climáticos</h1>
+<%= form_tag(previsao_path, method: "get") do %>
+  <%= select_tag(:cidade_id, options_for_select(@cidades)) %>
+  <%= submit_tag("Obter previsão") %>
+<% end %>
+
+<% if @previsao.present? %>
+  <h2>Previsão do clima para os próximos 7 dias:</h2>
+  <% @previsao.each do |dia| %>
+    <h3><%= dia[:data] %></h3>
+    <p>Temperatura Maxima: <%= dia[:maxima] %></p>
+    <p>Temperatura Mínima: <%= dia[:minima] %>°C</p>
+  <% end %>
+<% end %>
+
+<!-- <h1>Dados Climáticos</h1>
 
 <table>
   <thead>
@@ -19,4 +33,4 @@
       </tr>
     <% end %>
   </tbody>
-</table>
+</table> -->
