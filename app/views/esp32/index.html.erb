@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sensor Data</title>
+  <style>
+    body {
+      background-color: #222;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: 400px;
+      margin: 50px auto;
+      border-radius: 10px;
+      background-color: #333;
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .sensor {
+      margin-bottom: 20px;
+    }
+
+    .sensor label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .sensor .value {
+      font-size: 18px;
+    }
+
+    .sensor .unit {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Sensor Data</h1>
+    <h1>Esp32</h1>
+
+
+    <div class="sensor">
+      <label>Temperature</label>
+      <div class="value"><%= @dados["temperature"]["value"] || "N/A" %></div>
+      <div class="unit"><%= @dados["temperature"]["unit"] %></div>
+    </div>
+
+    <div class="sensor">
+      <label>Humidity</label>
+      <div class="value"><%= @dados["humidity"]["value"] || "N/A" %></div>
+      <div class="unit"><%= @dados["humidity"]["unit"] %></div>
+    </div>
+
+    <div class="sensor">
+      <label>Moisture 1</label>
+      <div class="value"><%= @dados["moisture1"]["value"] || "N/A" %></div>
+      <div class="unit"><%= @dados["moisture1"]["unit"] %></div>
+    </div>
+
+    <div class="sensor">
+      <label>Moisture 2</label>
+      <div class="value"><%= @dados["moisture2"]["value"] || "N/A" %></div>
+      <div class="unit"><%= @dados["moisture2"]["unit"] %></div>
+    </div>
+
+    <div class="sensor">
+      <label>CO2</label>
+      <div class="value"><%= @dados["co2"]["value"] || "N/A" %></div>
+      <div class="unit"><%= @dados["co2"]["unit"] %></div>
+    </div>
+
+    <div class="sensor">
+      <label>CO2 2</label>
+      <div class="value"><%= @dados["co2_2"]["value"] || "N/A" %></div>
+      <div class="unit"><%= @dados["co2_2"]["unit"] %></div>
+    </div>
+  </div>
+</body>
+</html>
+
+

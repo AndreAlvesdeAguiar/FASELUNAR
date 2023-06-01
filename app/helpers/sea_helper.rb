@@ -1,0 +1,2 @@
+module SeaHelper
+end
