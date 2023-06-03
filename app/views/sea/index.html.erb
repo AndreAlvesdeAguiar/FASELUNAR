@@ -1,111 +1,40 @@
-<%= @sea %>
+<h1>Selecione uma cidade</h1>
 
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Sensor Data</title>
-  <style>
-    body {
-      background-color: #222;
-      color: #fff;
-      font-family: Arial, sans-serif;
-    }
+<%= form_tag(previsao2_path, method: "get") do %>
+  <%= select_tag(:cidade_id, options_for_select(@cidades)) %>
+  <%= submit_tag("Obter previsão") %>
+<% end %>
 
-    .container {
-      width: 400px;
-      margin: 50px auto;
-      border-radius: 10px;
-      background-color: #333;
-      padding: 20px;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    }
+<% if @previsao2.present? %>
+  <h2>Previsão do clima para os próximos 7 dias:</h2>
+  <% @previsao2.each do |dia| %>
+    <h3><%= dia[:data] %></h3>
+    <h3><%= dia[:dia] %></h3>
+    <p>Agitação: <%= dia[:agitacao] %></p>
+    <p>Altura: <%= dia[:altura] %></p>
+    <p>Direção: <%= dia[:direcao] %></p>
+    <p>Vento: <%= dia[:vento] %></p>
+    <p>Direção do vento: <%= dia[:vento_dir] %></p>
+  <% end %>
+<% end %>
 
-    .sensor {
-      margin-bottom: 20px;
-    }
+<!-- <h1>Dados Climáticos</h1>
 
-    .sensor label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    .sensor .value {
-      font-size: 18px;
-    }
-
-    .sensor .unit {
-      font-size: 14px;
-      opacity: 0.8;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Sensor Data</h1>
-    <h1>Esp32</h1>
-
-    <% @sea["data"].each do |data| %>
-      <div class="sensor">
-        <label>Wave Period Min</label>
-        <div class="value"><%= data["wavePeriodMin"] || "N/A" %></div>
-      </div>
-
-      <div class="sensor">
-        <label>Global ID Local</label>
-        <div class="value"><%= data["globalIdLocal"] || "N/A" %></div>
-      </div>
-
-      <div class="sensor">
-        <label>Total Sea Max</label>
-        <div class="value"><%= data["totalSeaMax"] || "N/A" %></div>
-      </div>
-
-      <div class="sensor">
-        <label>Wave High Max</label>
-        <div class="value"><%= data["waveHighMax"] || "N/A" %></div>
-      </div>
-
-      <div class="sensor">
-        <label>Wave High Min</label>
-        <div class="value"><%= data["waveHighMin"] || "N/A" %></div>
-      </div>
-
-      <div class="sensor">
-        <label>Longitude</label>
-        <div class="value"><%= data["longitude"] || "N/A" %></div>
-      </div>
-
-      <div class="sensor">
-        <label>Wave Period Max</label>
-        <div class="value"><%= data["wavePeriodMax"] || "N/A" %></div>
-      </div>
-
-      <div class="sensor">
-        <label>Latitude</label>
-        <div class="value"><%= data["latitude"] || "N/A" %></div>
-      </div>
-
-      <div class="sensor">
-        <label>Total Sea Min</label>
-        <div class="value"><%= data["totalSeaMin"] || "N/A" %></div>
-      </div>
-
-      <div class="sensor">
-        <label>SST Max</label>
-        <div class="value"><%= data["sstMax"] || "N/A" %></div>
-      </div>
-
-      <div class="sensor">
-        <label>Predicted Wave Direction</label>
-        <div class="value"><%= data["predWaveDir"] || "N/A" %></div>
-      </div>
-
-      <div class="sensor">
-        <label>SST Min</label>
-        <div class="value"><%= data["sstMin"] || "N/A" %></div>
-      </div>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>UF</th>
+      <th>ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @data.each do |cidade| %>
+      <tr>
+        <td><%= cidade[0] %></td>
+        <td><%= cidade[1] %></td>
+        <td><%= cidade[2] %></td>
+      </tr>
     <% end %>
-  </div>
-</body>
-</html>
+  </tbody>
+</table> -->
