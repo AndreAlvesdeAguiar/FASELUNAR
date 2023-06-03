@@ -1,40 +1,51 @@
-<h1>Selecione uma cidade</h1>
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-<%= form_tag(previsao2_path, method: "get") do %>
-  <%= select_tag(:cidade_id, options_for_select(@cidades)) %>
-  <%= submit_tag("Obter previsão") %>
-<% end %>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <title>x</title>
+</head>
 
-<% if @previsao2.present? %>
-  <h2>Previsão do clima para os próximos 7 dias:</h2>
-  <% @previsao2.each do |dia| %>
-    <h3><%= dia[:data] %></h3>
-    <h3><%= dia[:dia] %></h3>
-    <p>Agitação: <%= dia[:agitacao] %></p>
-    <p>Altura: <%= dia[:altura] %></p>
-    <p>Direção: <%= dia[:direcao] %></p>
-    <p>Vento: <%= dia[:vento] %></p>
-    <p>Direção do vento: <%= dia[:vento_dir] %></p>
-  <% end %>
-<% end %>
+<body>
 
-<!-- <h1>Dados Climáticos</h1>
+<div class="col-md-6">
+    <div class="card">
+        <h1>Selecione uma cidade</h1>
+        <div class="card-header">
+            <%= form_tag(previsao2_path, method: "get") do %>
+                <%= select_tag(:cidade_id, options_for_select(@cidades)) %>
+                <%= submit_tag("Obter previsão") %>
+            <% end %>
+        </div>
+    </div>
+</div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Previsão do Mar</h2>
+        </div>
+        <div class="card-body">
+          <% if @previsao2.present? %>
+            <% @previsao2.each do |dia| %>
+              <h3><%= dia[:data] %></h3>
+              <h3><%= dia[:dia] %></h3>
+              <p>Agitação: <%= dia[:agitacao] %></p>
+              <p>Altura: <%= dia[:altura] %></p>
+              <p>Direção: <%= dia[:direcao] %></p>
+              <p>Vento: <%= dia[:vento] %></p>
+              <p>Direção do vento: <%= dia[:vento_dir] %></p>
+            <% end %>
+          <% else %>
+            <p>Nenhuma previsão disponível</p>
+          <% end %>
+        </div>
+      </div>
+    </div>   
+  </div>
+</body>
 
-<table>
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>UF</th>
-      <th>ID</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @data.each do |cidade| %>
-      <tr>
-        <td><%= cidade[0] %></td>
-        <td><%= cidade[1] %></td>
-        <td><%= cidade[2] %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table> -->
+</html>
