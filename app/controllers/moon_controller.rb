@@ -72,4 +72,6 @@ class MoonController < ApplicationController
 end
 
 
-#calculo tabua maré
+# calculo tabua maré
+# https://tabuademares.com/mares/previsao-mares
+# api nasa

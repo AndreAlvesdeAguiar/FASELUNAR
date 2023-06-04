@@ -39,57 +39,17 @@ body {
     padding: 20px;
   }
   
+  .moon-phases {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  }
+
   .moon-phase {
-    text-align: center;
-}
-
-.moon-phase i {
-font-size: 48px;
-margin-bottom: 10px;
-}
-
-.moon-phase .phase-name {
-font-size: 20px;
-}
-
-.season {
-text-align: center;
-}
-
-.season i {
-font-size: 48px;
-margin-bottom: 10px;
-}
-
-.season .season-name {
-font-size: 20px;
-}
-
-.dates {
-font-size: 14px;
-margin-top: 10px;
-}
-
-.moon-phases {
-display: flex;
-flex-wrap: wrap;
-justify-content: space-between;
-}
-
-.moon-phase {
-width: 45%;
-background-color: #222;
-padding: 10px;
-border-radius: 5px;
-margin-bottom: 10px;
-text-align: center;
-}
-
-.moon-phase .date {
-font-size: 14px;
-}
-
-.moon-phase .phase {
-font-size: 16px;
-}
-  
+  width: 45%;
+  background-color: #222;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+  }
