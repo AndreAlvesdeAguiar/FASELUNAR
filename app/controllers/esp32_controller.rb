@@ -1,70 +1,36 @@
 class Esp32Controller < ApplicationController
+    include ActionController::Live
   
     def index
-        url = "http://192.168.15.12/data"
-        response = HTTParty.get(url)
-        @dados = response.parsed_response
-
-        # ActionCable.server.broadcast('sensor_data', { data: @dados })
+      # Realiza a consulta inicial à API e obtém os dados
+      @dados1 = fetchSensorData("http://192.168.15.12/data")
+      @dados2 = fetchSensorData("http://192.168.15.13/data")
     end
-
-
-    # https://medium.com/@f3igao/set-up-a-chat-app-backend-with-rails-action-cable-d60f0a6e63c1
-    # def index
-    #     @cidades = listaCidades
-    # end
   
-#     def listaCidades
-#       url = "http://servicos.cptec.inpe.br/XML/listaCidades?city="
-#       response = HTTParty.get(url)
-      
-#       xml = Nokogiri::XML(response.body)
-#       nomes = xml.xpath('//nome').map(&:text)
-#       ufs = xml.xpath('//uf').map(&:text)
-#       ids = xml.xpath('//id').map { |node| node.text.to_i }
+    def stream
+      response.headers['Content-Type'] = 'text/event-stream'
+      10.times do
+        # Obtém os dados atualizados a cada iteração
+        @dados1 = fetchSensorData("http://192.168.15.12/data")
+        @dados2 = fetchSensorData("http://192.168.15.13/data")
   
-#       @data = nomes.zip(ufs, ids)
-#     end
+        # Renderiza a página index.html.erb como uma string
+        rendered_html = render_to_string(template: 'esp32/index', layout: false)
   
-#     def previsao
-#         cidade_id = params[:cidade_id]
-#         url = "http://servicos.cptec.inpe.br/XML/cidade/7dias/#{cidade_id}/previsao.xml"
-#         response = HTTParty.get(url)
-        
-#         xml = Nokogiri::XML(response.body)
-#         @previsao = parse_xml_previsao(xml)
-        
-#         if @previsao.nil?
-#         flash.now[:error] = "Não foi possível obter a previsão. Tente novamente mais tarde."
-#     end
-    
-#     @cidades = listaCidades
-    
-#       render "index"
-#     end
-    
-    
-#     private
+        # Envia os dados atualizados para o cliente
+        response.stream.write("data: #{rendered_html}\n\n")
   
-#     def parse_xml_previsao(xml)
-#         previsao = []
-        
-#         dias = xml.xpath('//previsao')
-        
-#         dias.each do |dia|
-#         data = dia.xpath('dia').text
-#         maxima = dia.xpath('maxima').text
-#         minima = dia.xpath('minima').text
+        sleep 1
+      end
+    ensure
+      response.stream.close
+    end
   
-#         previsao << {
-#             data: data,
-#           maxima: maxima,
-#           minima: minima
-#         }
-#     end
-    
-#       previsao
-#     end
-#   end
+    private
   
-end
+    def fetchSensorData(url)
+      response = HTTParty.get(url)
+      response.parsed_response
+    end
+  end
+  
