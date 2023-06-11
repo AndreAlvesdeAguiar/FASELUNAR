@@ -1,6 +1,6 @@
 body {
-    background-color: #000;
-    color: #fff;
+    background-color: #c51e1e;
+    color: #b60b0b65;
     font-family: Arial, sans-serif;
   }
   
@@ -14,16 +14,21 @@ body {
     text-align: center;
     margin-bottom: 30px;
   }
+
+  
   
   .title {
     font-size: 36px;
   }
   
   .card {
+    flex-basis: calc(50% - 10px);
     background-color: #111;
     border-radius: 10px;
     margin-bottom: 20px;
     text-align: center;
+    align-content: start;
+    justify-content: center;
   }
   
   .card-header {
@@ -58,7 +63,7 @@ body {
 
   body {
     background-color: #222;
-    color: #fff;
+    color: #ffffff21;
     font-family: Arial, sans-serif;
   }
 
