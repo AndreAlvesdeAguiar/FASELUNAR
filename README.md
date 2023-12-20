@@ -1,27 +1,4 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
 # FASELUNAR
 
 # https://faselua.fly.dev/
@@ -87,3 +64,31 @@ Por fim, é calculada a fase da lua com base na idade da lua. A idade da lua é 
 Os nomes das fases da lua são armazenados em um array chamado phase_names, e o valor calculado para a fase da lua é usado como índice para recuperar o nome correspondente dessa array.
 
 Esses cálculos permitem determinar a fase da lua com base em uma data específica, usando conceitos astronômicos e um sistema de referência temporal.
+
+
+
+
+# README
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
