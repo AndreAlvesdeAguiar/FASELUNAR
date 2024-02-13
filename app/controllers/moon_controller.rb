@@ -53,16 +53,27 @@ class MoonController < ApplicationController
     phase_names[phase]
   end
 
-  def current_season
+ def current_season
     today = Date.today
     seasons = {
-      verão: { start_date: Date.new(today.year, 12, 22), end_date: Date.new(today.year + 1, 3, 20) },
+      verão: { start_date: Date.new(today.year, 12, 21), end_date: Date.new(today.year + 1, 3, 20) },
       outono: { start_date: Date.new(today.year, 3, 21), end_date: Date.new(today.year, 6, 20) },
       inverno: { start_date: Date.new(today.year, 6, 21), end_date: Date.new(today.year, 9, 22) },
-      primavera: { start_date: Date.new(today.year, 9, 23), end_date: Date.new(today.year, 12, 21) }
+      primavera: { start_date: Date.new(today.year, 9, 23), end_date: Date.new(today.year, 12, 20) }
     }
-
-    season = seasons.detect { |_, dates| (dates[:start_date]..dates[:end_date]).cover?(today) }
+  
+    season = seasons.detect do |_, dates|
+      start_date = dates[:start_date].yday
+      end_date = dates[:end_date].yday
+      today_yday = today.yday
+  
+      if start_date < end_date
+        (start_date..end_date).cover?(today_yday)
+      else
+        (start_date..366).cover?(today_yday) || (1..end_date).cover?(today_yday)
+      end
+    end
+  
     {
       name: season&.first&.capitalize,
       start_date: season&.last&.[](:start_date),
