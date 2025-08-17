@@ -14,9 +14,5 @@ primary_region = "gru"
     timeout = "2s"
     grace_period = "5s"
 
-[build]
-  builder = "paketobuildpacks/builder-jammy-base"
-  buildpacks = ["ghcr.io/paketo-buildpacks/apt", "gcr.io/paketo-buildpacks/ruby"]
-
 [deploy]
   release_command = "bundle exec rails db:migrate"
