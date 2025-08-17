@@ -22,3 +22,11 @@ primary_region = "gru"
 [[statics]]
   guest_path = "/rails/public"
   url_prefix = "/"
+  
+[build]
+  builder = "paketobuildpacks/builder-jammy-base"
+  buildpacks = [
+    "paketo-buildpacks/ruby",
+    "paketo-buildpacks/node-engine",
+    "paketo-buildpacks/yarn-install"
+  ]
