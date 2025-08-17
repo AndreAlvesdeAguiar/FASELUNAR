@@ -25,4 +25,4 @@ primary_region = "gru"
 
 [build]
   builder = "paketobuildpacks/builder-jammy-base"
-  buildpacks = ["paketo-buildpacks/apt", "paketo-buildpacks/ruby"]
+  buildpacks = ["gcr.io/paketo-buildpacks/apt", "gcr.io/paketo-buildpacks/ruby"]
