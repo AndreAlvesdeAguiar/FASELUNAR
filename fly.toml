@@ -3,7 +3,7 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "faselua"
+app = "faselunar"
 primary_region = "gru"
 
 [http_service]
@@ -22,11 +22,6 @@ primary_region = "gru"
 [[statics]]
   guest_path = "/rails/public"
   url_prefix = "/"
-  
+
 [build]
   builder = "paketobuildpacks/builder-jammy-base"
-  buildpacks = [
-    "paketo-buildpacks/ruby",
-    "paketo-buildpacks/node-engine",
-    "paketo-buildpacks/yarn-install"
-  ]
