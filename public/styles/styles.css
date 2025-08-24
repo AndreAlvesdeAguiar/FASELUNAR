@@ -1,0 +1,158 @@
+/* public/styles/styles.css */
+:root {
+  color-scheme: light dark;
+  --radius: 14px;
+
+  /* default escuro */
+  --bg: #0b0f14;
+  --card: #111a22;
+  --card-2: #0f1720;
+  --text: #e6edf3;
+  --muted: #98a2b3;
+  --border: #1f2a37;
+  --accent: #7dd3fc;
+  --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+}
+
+html[data-theme="light"] {
+  --bg: #f6f8fb;
+  --card: #ffffff;
+  --card-2: #f2f5f9;
+  --text: #0f172a;
+  --muted: #475569;
+  --border: #e2e8f0;
+  --accent: #0284c7;
+  --shadow: 0 8px 24px rgba(2, 8, 23, .08);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(1200px 800px at 85% -10%, rgba(125,211,252,.10), transparent 55%),
+              radial-gradient(900px 700px at -10% 110%, rgba(56,189,248,.10), transparent 60%),
+              var(--bg);
+  color: var(--text);
+  font: 500 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.container {
+  max-width: 980px;
+  margin: 36px auto;
+  padding: 0 20px 40px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 36px);
+  letter-spacing: .3px;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.toggle:hover { transform: translateY(-1px); transition: transform .15s ease; }
+.toggle-text { font-weight: 600; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+@media (max-width: 720px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: linear-gradient(180deg, var(--card), var(--card-2));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: clip;
+  box-shadow: var(--shadow);
+}
+
+.card-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: .2px;
+}
+
+.card-body {
+  padding: 18px;
+}
+
+.center {
+  display: grid;
+  gap: 12px;
+  place-items: center;
+  text-align: center;
+}
+
+.big-icon {
+  font-size: 40px;
+  opacity: .9;
+  color: var(--accent);
+}
+
+.badge {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--accent) 20%, transparent);
+  color: var(--text);
+  border: 1px solid color-mix(in oklab, var(--accent) 55%, var(--border));
+  font-weight: 700;
+}
+
+.dates {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: var(--muted);
+}
+
+.moon-phases {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (max-width: 520px) {
+  .moon-phases { grid-template-columns: 1fr; }
+}
+
+.moon-phase {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+}
+.moon-phase .date { color: var(--muted); font-weight: 600; }
+.moon-phase .phase { font-weight: 700; }

@@ -1,4 +1,68 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
-<h1>Bem-vindo, Andre!</h1>
-<p>Seu app Rails está funcionando.</p>
+<!-- app/views/home/index.html.erb -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <script defer src="/styles/theme.js"></script>
+  <title>Fases da Lua</title>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1 class="title">Fases da Lua</h1>
+      <button id="themeToggle" class="toggle" aria-label="Alternar tema">
+        <i class="fas fa-adjust"></i><span class="toggle-text">Tema</span>
+      </button>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Fase Atual</h2>
+        </div>
+        <div class="card-body center">
+          <i class="fas fa-moon big-icon"></i>
+          <span class="badge"><%= @current_phase[:phase] %></span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Estação</h2>
+        </div>
+        <div class="card-body center">
+          <i class="fas fa-sun big-icon"></i>
+          <div class="season-line">
+            <span class="badge"><%= @current_season[:name] %></span>
+          </div>
+          <div class="dates">
+            <span><%= @current_season[:start_date]&.strftime('%d/%m/%Y') %></span>
+            <span>•</span>
+            <span><%= @current_season[:end_date]&.strftime('%d/%m/%Y') %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Próximas Fases</h2>
+      </div>
+      <div class="card-body">
+        <div class="moon-phases">
+          <% @next_phases.each do |phase| %>
+            <div class="moon-phase">
+              <div class="date"><%= phase[:date].strftime('%d/%m/%Y') %></div>
+              <div class="phase"><%= phase[:phase] %></div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
