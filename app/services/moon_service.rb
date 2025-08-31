@@ -1,5 +1,5 @@
 # app/services/moon_phase_service.rb
-class MoonPhaseService
+class MoonService
   SYNODIC_MONTH = 29.530588
   JDN_REF_NEW_MOON = 2451550.1
 

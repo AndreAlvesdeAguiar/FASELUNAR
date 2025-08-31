@@ -4,19 +4,16 @@ class HomeController < ApplicationController
     svc = MoonPhaseService.new(date: Time.zone.now)
 
     cur = svc.current_phase
-    nxt = svc.next_phases(4)
+    nxt = svc.next_phases(10)
 
     @current_phase = {
       phase: I18n.t(cur[:name_key]),
       date:  cur[:start_at].in_time_zone.to_date
     }
 
-    @next_phases = nxt.map do |p|
-      {
-        date:  p[:start_at].in_time_zone.to_date,
-        phase: I18n.t(p[:name_key])
-      }
-    end
+     @next_phases = nxt.map { |p|
+       { date: p[:start_at].in_time_zone.to_date, phase: I18n.t(p[:name_key]) }
+     }.sort_by { |h| h[:date] }  # garante ordem cronológica
 
     # estação (name + datas aproximadas do período)
     season_key = svc.current_season

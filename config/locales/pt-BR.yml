@@ -2,10 +2,10 @@ pt-BR:
   hello: "Olá"
   moon:
     phase:
-      new_moon: "Lua Nova"
-      first_quarter: "Quarto Crescente"
-      full_moon: "Lua Cheia"
-      last_quarter: "Quarto Minguante"
+      new_moon: "Nova"
+      first_quarter: "Crescente"
+      full_moon: "Cheia"
+      last_quarter: "Minguante"
   season:
     summer: "Verão"
     autumn: "Outono"

@@ -28,17 +28,20 @@ class MoonPhaseService
   end
 
   # Próximas n fases (sem repetir a atual), dentro do ciclo de 4
-  def next_phases(n = 4)
-    cache("next_phases:#{date_key}:#{n}") do
-      now_phase = phase_index_for(@date)
+# Próximas n fases (em ordem crescente de data)
+  def next_phases(n = 10)
+    cache("v2:next_phases:#{date_key}:#{n}") do
       out = []
-      idx = (now_phase + 1) % 4
+      idx = (phase_index_for(@date) + 1) % 4
+      cursor = @date
+
       while out.size < n
-        out << PHASES[idx].slice(:index, :name_key).merge(
-          start_at: phase_anchor_time(phase_index: idx, around: @date, forward: true)
-        )
-        idx = (idx + 1) % 4
+        t = phase_anchor_time(phase_index: idx, around: cursor, forward: true)
+        out << PHASES[idx].slice(:index, :name_key).merge(start_at: t)
+        idx    = (idx + 1) % 4
+        cursor = t + 1.second # garante que a próxima busca parte da última data
       end
+
       out
     end
   end
@@ -93,19 +96,19 @@ class MoonPhaseService
   # Aproxima o instante de início da fase pedida, próximo de 'around'.
   # Com forward=true, pega a próxima ocorrência no futuro.
   def phase_anchor_time(phase_index:, around:, forward: false)
-    target_fraction = phase_index / 4.0
-    current_age = moon_age_days(around)
-    current_fraction = current_age / SYNODIC_MONTH
-    delta_fraction = target_fraction - current_fraction
-    delta_days = delta_fraction * SYNODIC_MONTH
+    target_fraction  = phase_index / 4.0
+    current_fraction = moon_age_days(around) / SYNODIC_MONTH
+    delta_days = (target_fraction - current_fraction) * SYNODIC_MONTH
 
-    # para futuras ocorrências
-    if forward && delta_days <= 0
-      delta_days += SYNODIC_MONTH / 4.0
+    if forward
+      # some 1/4 de mês até ficar estritamente no futuro
+      quarter = SYNODIC_MONTH / 4.0
+      delta_days += quarter while delta_days <= 0
     end
 
     (around + delta_days.days).utc
   end
+
 
   # Estações (Sul)
   def season_for(date)
