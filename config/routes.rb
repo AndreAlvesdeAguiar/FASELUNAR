@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   root "home#index"
   get "moon", to: "home#index" # opcional, atalho
+  get "previsao", to: "home#index"
 
   # Defines the root path route ("/")
   # root "posts#index"

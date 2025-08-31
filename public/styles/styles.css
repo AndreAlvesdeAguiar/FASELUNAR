@@ -1,158 +1,273 @@
-/* public/styles/styles.css */
+/* =========================================
+   1. TOKENS DE TEMA E DIMENSÕES
+========================================= */
 :root {
   color-scheme: light dark;
-  --radius: 14px;
 
-  /* default escuro */
-  --bg: #0b0f14;
-  --card: #111a22;
-  --card-2: #0f1720;
-  --text: #e6edf3;
-  --muted: #98a2b3;
-  --border: #1f2a37;
-  --accent: #7dd3fc;
-  --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+  /* cores dark */
+  --bg:#0b0f14;
+  --card:#111a22;
+  --card-2:#0f1720;
+  --text:#e6edf3;
+  --muted:#98a2b3;
+  --border:#1f2a37;
+  --accent:#7dd3fc;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+
+  /* cantos e medidas globais */
+  --radius:14px;
+  --rail-w:200px;
+  --topbar-h:64px;
+  --ribbon-h:64px;
+  --content-w:1100px;
 }
-
-html[data-theme="light"] {
-  --bg: #f6f8fb;
-  --card: #ffffff;
-  --card-2: #f2f5f9;
-  --text: #0f172a;
-  --muted: #475569;
-  --border: #e2e8f0;
-  --accent: #0284c7;
-  --shadow: 0 8px 24px rgba(2, 8, 23, .08);
-}
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  background: radial-gradient(1200px 800px at 85% -10%, rgba(125,211,252,.10), transparent 55%),
-              radial-gradient(900px 700px at -10% 110%, rgba(56,189,248,.10), transparent 60%),
-              var(--bg);
-  color: var(--text);
-  font: 500 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+html[data-theme="light"]{
+  --bg:#f6f8fb;
+  --card:#ffffff;
+  --card-2:#f2f5f9;
+  --text:#0f172a;
+  --muted:#475569;
+  --border:#e2e8f0;
+  --accent:#0284c7;
+  --shadow:0 8px 24px rgba(2,8,23,.08);
 }
 
-.container {
-  max-width: 980px;
-  margin: 36px auto;
-  padding: 0 20px 40px;
+/* =========================================
+   2. BASE
+========================================= */
+*{ box-sizing:border-box }
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 800px at 85% -10%, rgba(125,211,252,.10), transparent 55%),
+    radial-gradient(900px 700px at -10% 110%, rgba(56,189,248,.10), transparent 60%),
+    var(--bg);
+  color:var(--text);
+  font:500 16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,Cantarell,Arial;
+}
+.container{
+  max-width:980px;
+  margin:36px auto;
+  padding:0 20px 40px;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 24px;
+/* =========================================
+   3. TOPBAR
+========================================= */
+.topbar{
+  position:fixed; inset:0 0 auto 0; height:var(--topbar-h);
+  display:grid; grid-template-columns:160px 1fr auto; align-items:center; gap:16px;
+  padding:0 20px;
+  background:color-mix(in oklab, var(--bg) 70%, transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  z-index:40;
+}
+.brand{ font-weight:900; font-size:22px; letter-spacing:.5px }
+.topnav{ display:flex; gap:16px; align-items:center }
+.topnav a{ color:var(--text); text-decoration:none; font-weight:700; opacity:.85; padding:8px 10px; border-radius:10px }
+.topnav a:hover{ background:color-mix(in oklab, var(--accent) 12%, transparent) }
+.topactions{ display:flex; gap:8px }
+.iconbtn{
+  width:40px; height:40px; display:grid; place-items:center;
+  border-radius:10px; border:1px solid var(--border);
+  background:var(--card); color:var(--text); cursor:pointer;
 }
 
-.title {
-  margin: 0;
-  font-size: clamp(28px, 4vw, 36px);
-  letter-spacing: .3px;
+/* =========================================
+   4. BARRA LATERAL (RAIL)
+========================================= */
+.rail{
+  position:fixed;
+  top:var(--topbar-h);
+  bottom:var(--ribbon-h);
+  left:0;
+  width:var(--rail-w);
+  background:linear-gradient(180deg, var(--card), var(--card-2));
+  border-right:1px solid var(--border);
+  display:grid;
+  grid-auto-rows:min-content;
+  gap:10px;
+  padding:10px 8px;
+  overflow-y:auto;
+  z-index:20;
+  box-shadow:var(--shadow);
+}
+.rail-item{ display:grid; grid-template-columns:36px 1fr; align-items:center; gap:8px }
+.rail-sep{ height:1px; background:var(--border); margin:4px 0 }
+.ri-badge{
+  display:grid; place-items:center;
+  width:36px; height:36px; border-radius:10px;
+  border:1px solid var(--border); background:var(--card); font-weight:900;
+}
+.ri-col{ display:grid; line-height:1.1 }
+.ri-value{ font-weight:900 }
+.ri-value.small{ font-size:12px }
+.ri-sub{ color:var(--muted); font-size:12px }
+
+/* =========================================
+   5. HERÓI COM LISTA  (versão simplificada)
+========================================= */
+.hero{
+  position:relative;
+  min-height:46vh;
+  display:grid; place-items:center;
+  background:linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.35)), var(--bg);
+  background-image:linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.35)), var(--hero, none);
+  background-position:center; background-size:cover;
+}
+.hero.hero-list{
+  margin-top:var(--topbar-h);
+  padding:28px 16px 28px calc(var(--rail-w) + 12px); /* abre espaço pra barra lateral */
+  border-bottom:1px solid var(--border);
+}
+.hero-inner{
+  max-width:var(--content-w);
+  margin:0 auto;
+  color:var(--text);
+  text-align:center;
+}
+.hero-title{
+  margin:0 0 14px;
+  font-size:clamp(28px, 6vw, 44px);
 }
 
-.toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  color: var(--text);
-  cursor: pointer;
-  box-shadow: var(--shadow);
-}
-.toggle:hover { transform: translateY(-1px); transition: transform .15s ease; }
-.toggle-text { font-weight: 600; }
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-  margin-bottom: 16px;
-}
-@media (max-width: 720px) {
-  .grid { grid-template-columns: 1fr; }
+/* lista vertical encostada à esquerda */
+.scroller{
+  display:flex;
+  flex-direction:column;          /* empilha */
+  align-items:flex-start;         /* alinha à esquerda */
+  gap:10px;
+  width:360px;                    /* largura da coluna da lista */
+  max-height:280px;               /* limita a altura da área */
+  overflow:auto;                  /* rola se passar */
+  padding:6px 0 12px;
+  margin:0 auto 0 0;              /* gruda no canto esquerdo do hero-inner */
 }
 
-.card {
-  background: linear-gradient(180deg, var(--card), var(--card-2));
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: clip;
-  box-shadow: var(--shadow);
+/* aparência das pills ocupando a largura da coluna */
+.pill{
+  display:flex;
+  justify-content:space-between;  /* data à esquerda, fase à direita */
+  align-items:center;
+  width:100%;
+  padding:10px 14px;
+  border-radius:12px;
+  background:color-mix(in oklab, var(--accent) 16%, transparent);
+  border:1px solid color-mix(in oklab, var(--accent) 55%, var(--border));
+}
+.pill-date{ color:var(--muted); font-weight:700 }
+.pill-phase{ font-weight:900 }
+
+/* suaviza a barra de rolagem da lista */
+.scroller::-webkit-scrollbar{ height:8px; width:8px }
+.scroller::-webkit-scrollbar-thumb{ background:color-mix(in oklab, var(--accent) 35%, transparent); border-radius:8px }
+
+/* mobile: volta a quebrar em linhas para caber */
+@media (max-width: 900px){
+  .scroller{
+    width:100%;
+    max-height:none;
+    flex-direction:row;
+    flex-wrap:wrap;
+    margin:0;
+  }
+  .pill{ width:auto }
 }
 
-.card-header {
-  padding: 14px 18px;
-  border-bottom: 1px solid var(--border);
-  background: transparent;
+
+/* =========================================
+   6. CONTEÚDO PRINCIPAL
+========================================= */
+.container.with-rail{
+  max-width:var(--content-w);
+  margin:24px auto 48px;
+  padding:0 16px calc(var(--ribbon-h) + 16px);
+  padding-left:calc(var(--rail-w) + 16px);
+}
+.header{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:24px }
+.title{ margin:0; font-size:clamp(28px, 4vw, 36px); letter-spacing:.3px }
+.toggle{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px; border:1px solid var(--border); background:var(--card); color:var(--text); cursor:pointer; box-shadow:var(--shadow) }
+.toggle:hover{ transform:translateY(-1px); transition:transform .15s ease }
+.toggle-text{ font-weight:600 }
+
+.grid{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:16px; margin-bottom:16px }
+@media (max-width:720px){ .grid{ grid-template-columns:1fr } }
+
+.card{
+  background:linear-gradient(180deg, var(--card), var(--card-2));
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:clip;
+  box-shadow:var(--shadow);
+}
+.card-header{ padding:14px 18px; border-bottom:1px solid var(--border); background:transparent }
+.card-title{ margin:0; font-size:18px; letter-spacing:.2px }
+.card-body{ padding:18px }
+.center{ display:grid; gap:12px; place-items:center; text-align:center }
+.big-icon{ font-size:40px; opacity:.9; color:var(--accent) }
+.badge{
+  display:inline-block; padding:8px 12px; border-radius:999px;
+  background:color-mix(in oklab, var(--accent) 20%, transparent);
+  color:var(--text);
+  border:1px solid color-mix(in oklab, var(--accent) 55%, var(--border));
+  font-weight:700;
+}
+.dates{ display:flex; gap:10px; align-items:center; color:var(--muted) }
+
+/* lista de fases em cards pequenos (se você usar) */
+.moon-phases{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px }
+@media (max-width:520px){ .moon-phases{ grid-template-columns:1fr } }
+.moon-phase{
+  background:var(--card); border:1px solid var(--border); border-radius:12px;
+  padding:12px 14px; display:grid; grid-template-columns:1fr auto; align-items:center; gap:10px;
+}
+.moon-phase .date{ color:var(--muted); font-weight:600 }
+.moon-phase .phase{ font-weight:700 }
+
+/* =========================================
+   7. PREVISÃO DO TEMPO
+========================================= */
+.forecast{ display:grid; grid-template-columns:repeat(7, minmax(120px,1fr)); gap:12px; overflow-x:auto; padding-bottom:4px }
+@media (max-width:920px){ .forecast{ grid-template-columns:repeat(4, minmax(120px,1fr)) } }
+@media (max-width:560px){ .forecast{ grid-template-columns:repeat(2, minmax(120px,1fr)) } }
+.day{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px; display:grid; gap:8px }
+.d-head{ display:flex; justify-content:space-between; align-items:center }
+.d-date{ font-weight:700 }
+.d-temps{ display:flex; gap:10px; align-items:baseline }
+.t-max{ font-weight:800 }
+.t-min{ color:var(--muted) }
+.d-label{ color:var(--muted); font-size:.95rem; min-height:2.2em }
+
+/* =========================================
+   8. RIBBON INFERIOR
+========================================= */
+.ribbon{
+  position:fixed; left:0; right:0; bottom:0; height:var(--ribbon-h);
+  display:grid; grid-template-columns:repeat(3, minmax(160px,1fr)) 64px; gap:8px;
+  padding:10px 14px; padding-left:calc(var(--rail-w) + 14px);
+  background:linear-gradient(180deg, var(--card), var(--card-2));
+  border-top:1px solid var(--border); z-index:30;
+}
+.r-item{ display:grid; gap:4px; align-content:center; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:8px 12px }
+.r-label{ color:var(--muted); font-weight:700; font-size:12px }
+.r-value{ font-weight:900 }
+.r-cta{ border-radius:12px; border:1px solid var(--border); background:var(--accent); color:#032b3a; font-weight:900; cursor:pointer }
+
+/* =========================================
+   9. RESPONSIVO
+========================================= */
+@media (max-width:980px){ .topnav{ display:none } }
+@media (max-width:900px){
+  :root{ --rail-w:0px }
+  .rail{
+    position:sticky; top:var(--topbar-h); bottom:auto; width:100%;
+    grid-auto-flow:column; grid-auto-columns:min-content;
+    overflow-x:auto; overflow-y:hidden;
+    border-right:0; border-bottom:1px solid var(--border);
+  }
+  .hero.hero-list{ padding-left:16px }
+  .container.with-rail{ padding-left:16px }
+  .ribbon{ padding-left:14px }
 }
 
-.card-title {
-  margin: 0;
-  font-size: 18px;
-  letter-spacing: .2px;
-}
-
-.card-body {
-  padding: 18px;
-}
-
-.center {
-  display: grid;
-  gap: 12px;
-  place-items: center;
-  text-align: center;
-}
-
-.big-icon {
-  font-size: 40px;
-  opacity: .9;
-  color: var(--accent);
-}
-
-.badge {
-  display: inline-block;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: color-mix(in oklab, var(--accent) 20%, transparent);
-  color: var(--text);
-  border: 1px solid color-mix(in oklab, var(--accent) 55%, var(--border));
-  font-weight: 700;
-}
-
-.dates {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  color: var(--muted);
-}
-
-.moon-phases {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-@media (max-width: 520px) {
-  .moon-phases { grid-template-columns: 1fr; }
-}
-
-.moon-phase {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px 14px;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 10px;
-}
-.moon-phase .date { color: var(--muted); font-weight: 600; }
-.moon-phase .phase { font-weight: 700; }
