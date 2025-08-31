@@ -148,32 +148,32 @@
 <body>
   <div class="page">
     <div class="layout">
-      <aside class="rail">
+      <aside class="rail" aria-label="Informações da cidade e clima">
         <div class="ri-title">
-          <span class="ri-badge"><i class="fas fa-map-marker-alt"></i></span>
+          <span class="ri-badge" aria-hidden="true"><i class="fas fa-map-marker-alt"></i></span>
           <span class="ri-text"><%= @city_label %></span>
         </div>
 
-        <div class="rail-item">
-          <span class="ri-badge">🌞</span>
+        <div class="rail-item" title="Temperatura máxima de hoje">
+          <span class="ri-badge" aria-hidden="true">🌞</span>
           <div class="ri-col">
             <span class="ri-value"><%= @today&.dig(:max) || "—" %>°</span>
             <span class="ri-sub">máx</span>
           </div>
         </div>
 
-        <div class="rail-item">
-          <span class="ri-badge">🌙</span>
+        <div class="rail-item" title="Temperatura mínima de hoje">
+          <span class="ri-badge" aria-hidden="true">🌙</span>
           <div class="ri-col">
             <span class="ri-value"><%= @today&.dig(:min) || "—" %>°</span>
             <span class="ri-sub">mín</span>
           </div>
         </div>
 
-        <div class="rail-item">
-          <span class="ri-badge">🌗</span>
+        <div class="rail-item" title="Fase atual da lua">
+          <span class="ri-badge" aria-hidden="true">🌗</span>
           <div class="ri-col">
-            <span class="ri-value small"><%= @current_phase[:phase] %></span>
+            <span class="ri-value small"><%= @current_phase&.dig(:phase) || "—" %></span>
             <span class="ri-sub">lua</span>
           </div>
         </div>
@@ -183,18 +183,18 @@
         <header class="header">
           <h1 class="title">Fases da Lua</h1>
           <button id="themeToggle" class="toggle" aria-label="Alternar tema">
-            <i class="fas fa-adjust"></i><span class="toggle-text">Tema</span>
+            <i class="fas fa-adjust" aria-hidden="true"></i><span class="toggle-text">Tema</span>
           </button>
         </header>
 
-        <section class="grid-2">
+        <section class="grid-2" aria-label="Painéis principais">
           <div class="card">
             <div class="card-header">
               <h2 class="card-title">Fase Atual</h2>
             </div>
             <div class="card-body center">
-              <i class="fas fa-moon big-icon"></i>
-              <span class="badge"><%= @current_phase[:phase] %></span>
+              <i class="fas fa-moon big-icon" aria-hidden="true"></i>
+              <span class="badge"><%= @current_phase&.dig(:phase) || "—" %></span>
             </div>
           </div>
 
@@ -203,31 +203,34 @@
               <h2 class="card-title">Estação</h2>
             </div>
             <div class="card-body center">
-              <i class="fas fa-sun big-icon"></i>
+              <i class="fas fa-sun big-icon" aria-hidden="true"></i>
               <div class="season-line">
-                <span class="badge"><%= @current_season[:name] %></span>
+                <span class="badge"><%= @current_season&.dig(:name) || "—" %></span>
               </div>
               <div style="display:flex;gap:10px;color:var(--muted)">
-                <span><%= @current_season[:start_date]&.strftime('%d/%m/%Y') %></span>
+                <span><%= @current_season&.dig(:start_date)&.strftime('%d/%m/%Y') || "—" %></span>
                 <span>•</span>
-                <span><%= @current_season[:end_date]&.strftime('%d/%m/%Y') %></span>
+                <span><%= @current_season&.dig(:end_date)&.strftime('%d/%m/%Y') || "—" %></span>
               </div>
             </div>
           </div>
         </section>
 
-        <section class="card">
+        <section class="card" aria-label="Lista de próximas fases">
           <div class="card-header">
             <h2 class="card-title">Próximas Fases</h2>
           </div>
           <div class="card-body">
             <div class="moon-phases">
-              <% @next_phases.each do |phase| %>
+              <% Array(@next_phases).each do |phase| %>
                 <div class="moon-phase">
-                  <div class="mp-icon"><i class="fas fa-moon"></i></div>
-                  <div class="date"><%= phase[:date].strftime('%d/%m/%Y') %></div>
-                  <div class="phase"><%= phase[:phase] %></div>
+                  <div class="mp-icon" aria-hidden="true"><i class="fas fa-moon"></i></div>
+                  <div class="date"><%= phase[:date]&.strftime('%d/%m/%Y') || "—" %></div>
+                  <div class="phase"><%= phase[:phase] || "—" %></div>
                 </div>
+              <% end %>
+              <% if Array(@next_phases).empty? %>
+                <p style="color:var(--muted)">Sem dados de próximas fases.</p>
               <% end %>
             </div>
           </div>
